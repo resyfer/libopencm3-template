@@ -1,5 +1,5 @@
 diff --git a/ld/linker.ld.S b/ld/linker.ld.S
-index 40aefb92..0f86054b 100644
+index 40aefb92..f6281cdf 100644
 --- a/ld/linker.ld.S
 +++ b/ld/linker.ld.S
 @@ -29,48 +29,8 @@ ENTRY(reset_handler)
@@ -53,56 +53,10 @@ index 40aefb92..0f86054b 100644
  }
  
  /* Define sections. */
-@@ -83,44 +43,6 @@ SECTIONS
- 		*(.rodata*)	/* Read-only data */
- 		. = ALIGN(4);
- 	} >rom
--
--	/* C++ Static constructors/destructors, also used for
--	 * __attribute__((constructor)) and the likes.
--	 */
--	.preinit_array : {
--		. = ALIGN(4);
--		__preinit_array_start = .;
--		KEEP (*(.preinit_array))
--		__preinit_array_end = .;
--	} >rom
--	.init_array : {
--		. = ALIGN(4);
--		__init_array_start = .;
--		KEEP (*(SORT(.init_array.*)))
--		KEEP (*(.init_array))
--		__init_array_end = .;
--	} >rom
--	.fini_array : {
--		. = ALIGN(4);
--		__fini_array_start = .;
--		KEEP (*(.fini_array))
--		KEEP (*(SORT(.fini_array.*)))
--		__fini_array_end = .;
--	} >rom
--
--	/*
--	 * Another section used by C++ stuff, appears when using newlib with
--	 * 64bit (long long) printf support
--	 */
--	.ARM.extab : {
--		*(.ARM.extab*)
--	} >rom
--	.ARM.exidx : {
--		__exidx_start = .;
--		*(.ARM.exidx*)
--		__exidx_end = .;
--	} >rom
--
- 	. = ALIGN(4);
- 	_etext = .;
- 
-@@ -145,94 +67,6 @@ SECTIONS
- 		. = ALIGN(4);
+@@ -146,87 +106,6 @@ SECTIONS
  		_ebss = .;
  	} >ram
--
+ 
 -#if defined(_CCM)
 -	.ccm : {
 -		_ccm = .;
@@ -184,12 +138,6 @@ index 40aefb92..0f86054b 100644
 -	} >nfcram
 -#endif
 -
--	/*
--	 * The .eh_frame section appears to be used for C++ exception handling.
--	 * You may need to fix this if you're using C++.
--	 */
--	/DISCARD/ : { *(.eh_frame) }
--
- 	. = ALIGN(4);
- 	end = .;
- }
+ 	/*
+ 	 * The .eh_frame section appears to be used for C++ exception handling.
+ 	 * You may need to fix this if you're using C++.

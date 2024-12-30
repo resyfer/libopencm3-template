@@ -1,0 +1,4 @@
+.ccls-cache
+build/**
+!build/.gitkeep
+compile_commands.json
